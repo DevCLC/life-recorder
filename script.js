@@ -10,23 +10,21 @@ startBtn.addEventListener("click", async () => {
     return;
   }
 
-  // Открываем видео в новом окне для записи
-  const videoWindow = window.open(url, "_blank", "width=1280,height=720");
-
-  // Ждём немного, чтобы страница прогрузилась
-  await new Promise(resolve => setTimeout(resolve, 3000));
-
   try {
-    // Запрашиваем доступ к экрану без отображения
+    // Запрашиваем доступ к экрану для записи
     const stream = await navigator.mediaDevices.getDisplayMedia({
       video: { frameRate: 30, width: 1920, height: 1080 }, // Высокое качество записи
       audio: true
     });
 
+    // Создаем объект MediaRecorder для записи
     const recorder = new MediaRecorder(stream);
     const chunks = [];
 
+    // Обработка данных при записи
     recorder.ondataavailable = e => chunks.push(e.data);
+
+    // Обработка окончания записи
     recorder.onstop = () => {
       const blob = new Blob(chunks, { type: "video/webm" });
       const videoURL = URL.createObjectURL(blob);
@@ -40,29 +38,34 @@ startBtn.addEventListener("click", async () => {
         downloadLink.style.display = "none";
       }, 2 * 60 * 1000);
 
-      if (videoWindow && !videoWindow.closed) {
-        videoWindow.close();
-      }
+      // Останавливаем поток
+      stream.getTracks().forEach(track => track.stop());
     };
 
+    // Старт записи
     recorder.start();
     startBtn.disabled = true;
     downloadLink.style.display = "none";
     progressBar.style.width = "0%";
 
-    // Прогресс записи
+    // Прогресс записи: динамическое определение длительности записи
     let progress = 0;
-    const duration = 20 * 60; // Задаём длительность записи (например, 20 минут)
+    const startTime = Date.now();
+    
     const interval = setInterval(() => {
-      progress += 100 / duration;
+      const elapsed = Date.now() - startTime;
+      const duration = Math.floor(elapsed / 1000); // Время записи в секундах
+      progress = (duration / 1000) * 100; // Преобразуем в проценты
+
       progressBar.style.width = `${progress}%`;
+
+      // Когда запись заканчивается (например, через 2 часа или по клику на кнопку)
       if (progress >= 100) {
         clearInterval(interval);
         recorder.stop();
-        stream.getTracks().forEach(track => track.stop());
         startBtn.disabled = false;
       }
-    }, 1000);
+    }, 1000); // обновление каждую секунду
 
   } catch (error) {
     console.error("Ошибка:", error);
