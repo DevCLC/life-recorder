@@ -1,60 +1,84 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0e0e0e;
+  background-color: #121212;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
+  overflow: hidden;
 }
 
 .container {
-  background: #1f1f1f;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 255, 100, 0.2);
-  max-width: 400px;
+  background: #1e1e1e;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 40px rgba(0, 255, 100, 0.2);
+  max-width: 450px;
   width: 90%;
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.container:hover {
+  transform: scale(1.03);
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 28px;
   margin-bottom: 20px;
+  font-weight: 600;
+  color: #00b300;
 }
 
 input[type="url"] {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  border: none;
+  padding: 14px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border: 1px solid #333;
   font-size: 16px;
+  background-color: #2a2a2a;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+input[type="url"]:focus {
+  border: 1px solid #00ff80;
+  background-color: #333;
+  outline: none;
 }
 
 button {
-  background: #00b300;
+  background: linear-gradient(145deg, #00b300, #00ff80);
   border: none;
-  padding: 12px;
+  padding: 14px;
   width: 100%;
   color: white;
-  font-size: 16px;
-  border-radius: 8px;
+  font-size: 18px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 255, 100, 0.3);
 }
 
 button:disabled {
   background: #444;
   cursor: not-allowed;
+  box-shadow: none;
+}
+
+button:hover:enabled {
+  background: linear-gradient(145deg, #00ff80, #00b300);
+  box-shadow: 0 4px 15px rgba(0, 255, 100, 0.4);
 }
 
 .progress {
   background: #333;
   border-radius: 8px;
   height: 8px;
-  margin-top: 20px;
+  margin-top: 25px;
   overflow: hidden;
 }
 
@@ -67,8 +91,14 @@ button:disabled {
 
 .download-link {
   display: none;
-  margin-top: 20px;
+  margin-top: 25px;
   text-decoration: none;
   color: #00ffcc;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.download-link:hover {
+  color: #00b300;
 }
