@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Запись видео с экрана</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎥 Записать видео по ссылке</h1>
+    <input type="url" id="urlInput" placeholder="Вставьте ссылку на видео" required />
+    <button id="startBtn">▶️ Начать запись</button>
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <a id="downloadLink" class="download-link" href="#" download="video.webm">
+      ⬇️ Скачать видео
+    </a>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
