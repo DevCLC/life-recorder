@@ -72,3 +72,4 @@ startBtn.addEventListener("click", async () => {
     alert("Не удалось начать запись. Возможно, доступ к экрану запрещён.");
   }
 });
+
